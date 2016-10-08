@@ -26,6 +26,7 @@ def friends():
     elif not email_regex.match(request.form['email']):
         flash("Invalid Email Address!")
     else:
+        flash('Added {} in database'.format(request.form['first_name'], request.form['last_name']))
         query = "INSERT INTO friends (first_name, last_name, email, created_at) VALUES (:first_name, :last_name, :email, Now());"
         data = {
             'first_name': request.form['first_name'],
@@ -36,7 +37,7 @@ def friends():
     return redirect('/')
 
 @app.route('/friends/<id>/delete', methods=['POST'])
-def destry(id):
+def destroy(id):
     print(id)
     query = "SELECT first_name, last_name FROM friends WHERE id=:id"
     data = {
@@ -48,27 +49,5 @@ def destry(id):
     # query = "DELETE FROM friends WHERE id=:id"
     # #mysql.query_db(query, data)
     return redirect('/')
-
-# @app.route('/validate', methods=['POST'])
-# def validate_email():
-#     if len(request.form['email']) < 1:
-#         flash("Email cannot be blank!")
-#         return redirect('/')
-#     elif not email_regex.match(request.form['email']):
-#         flash("Invalid Email Address!")
-#         return redirect('/')
-#     else:
-#         flash("The email address you entered ({}) is a VALID email address! Thank you!".format(request.form['email']))
-#         query = "INSERT INTO emails (emails, created_at, updated_at) VALUES (:email, Now(), Now())"
-#         data = {
-#             'email': request.form['email']
-#         }
-#         mysql.query_db(query, data)
-#         return redirect('/success')
-# @app.route('/success')
-# def show_emails():
-#     query = "SELECT emails, date_format(created_at, '%m:%d:%y %l:%i %p') as created_at FROM emails"
-#     emails = mysql.query_db(query)
-#     return render_template('emails.html', emails=emails)
 
 app.run(debug=True)
