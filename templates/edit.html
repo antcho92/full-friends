@@ -5,19 +5,22 @@
         <title>Edit Friend</title>
     </head>
     <body>
-        <h1></h1>
+        <h1>Edit your friend</h1>
+        <p>{{friend}}</p>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-        {% for message in messages %}
-        <div class="success">
-            <h3>{{message}}</h3>
-        </div>
-        {% endfor %}
+            {% for message in messages %}
+                <div>
+                    <p>{{message}}</p>
+                </div>
+            {% endfor %}
         {% endif %}
         {% endwith %}
-        <h2>Email Addresses Entered:</h2>
-        {% for email in emails %}
-            <p>{{email.emails}} <span>{{email.created_at}}</span></p>
-        {% endfor %}
+        <form action="/friends/{{friend['id']}}" method="post">
+            First Name:<input type="text" name="first_name" value="">
+            Last Name:<input type="text" name="last_name" value="">
+            Email:<input type="text" name="email" value="">
+            <input type="submit" name="name" value="Update">
+        </form>
     </body>
 </html>

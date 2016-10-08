@@ -26,6 +26,9 @@
         <ul>
         {% for friend in friends_list %}
             <li>{{friend.first_name}} {{friend.last_name}}  {{friend.email}}
+            <form action="/friends/{{friend.id}}/edit" method="GET">
+                <input type="submit" name="edit" value="Edit">
+            </form>
             <form action="/friends/{{friend.id}}/delete" method="POST">
                 <input type="submit" name="delete" value="Delete">
             </form>
