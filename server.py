@@ -35,19 +35,17 @@ def friends():
         }
         mysql.query_db(query, data)
     return redirect('/')
-
 @app.route('/friends/<id>/delete', methods=['POST'])
 def destroy(id):
-    print(id)
     query = "SELECT first_name, last_name FROM friends WHERE id=:id"
     data = {
         'id': id
     }
     friend = mysql.query_db(query, data)[0]
     print(friend)
-    # flash('deleted {} {} from your database',format(friend.first_name, friend.last_name))
-    # query = "DELETE FROM friends WHERE id=:id"
-    # #mysql.query_db(query, data)
+    flash('deleted {} {} from your database'.format(friend['first_name'], friend['last_name']))
+    query = "DELETE FROM friends WHERE id=:id"
+    mysql.query_db(query, data)
     return redirect('/')
 
 app.run(debug=True)
