@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Full Friends</title>
+    </head>
+    <body>
+        <h2>Friends List</h2>
+        {% for friend in friends_list %}
+            <p>{{friend.first_name}} {{friend.last_name}}  {{friend.email}}</p>
+            <form action="/delete/:{{friend.id}}" method="post">
+                <input type="submit" name="delete" value="Delete">
+            </form>
+        {% endfor %}
+    </body>
+
+</html>
